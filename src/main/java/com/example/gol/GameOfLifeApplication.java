@@ -3,6 +3,10 @@ package com.example.gol;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -10,11 +14,9 @@ import java.io.IOException;
 public class GameOfLifeApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(GameOfLifeApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1000, 1000);
-        stage.setTitle("Game Of Life!");
-        stage.setScene(scene);
-        stage.show();
+        World world = new World();
+
+        world.createWorld(stage);
     }
 
     public static void main(String[] args) {
