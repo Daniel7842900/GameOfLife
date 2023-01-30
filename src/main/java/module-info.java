@@ -7,4 +7,6 @@ module com.example.gol {
 
     opens com.example.gol to javafx.fxml;
     exports com.example.gol;
+    exports com.example.gol.presentation;
+    opens com.example.gol.presentation to javafx.fxml;
 }

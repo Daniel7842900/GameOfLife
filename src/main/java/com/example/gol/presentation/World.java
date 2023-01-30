@@ -1,4 +1,4 @@
-package com.example.gol;
+package com.example.gol.presentation;
 
 import javafx.scene.Scene;
 import javafx.scene.layout.ColumnConstraints;
@@ -31,15 +31,8 @@ public class World {
 
         for (int i = 0; i < columns; i++) {
             for (int j = 0; j < rows; j++) {
-                Pane pane = new Pane();
-                pane.getStyleClass().add("game-grid-cell");
-                if (i == 0) {
-                    pane.getStyleClass().add("first-column");
-                }
-                if (j == 0) {
-                    pane.getStyleClass().add("first-row");
-                }
-                root.add(pane, i, j);
+                Cell cell = new Cell(new Cell.Coordinate(i,j));
+                root.add(cell, j, i);
             }
         }
     }
@@ -50,13 +43,13 @@ public class World {
      *
      * @param stage
      */
-    protected void createWorld(Stage stage) {
+    public void createWorld(Stage stage) {
         GridPane root = createRoot();
         createGrid(root);
 
         Scene scene = new Scene(root);
         stage.setTitle("Game Of Life!");
-        scene.getStylesheets().add(getClass().getResource("GameOfLifeStyle.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/com/example/gol/GameOfLifeStyle.css").toExternalForm());
         stage.setScene(scene);
         stage.show();
     }

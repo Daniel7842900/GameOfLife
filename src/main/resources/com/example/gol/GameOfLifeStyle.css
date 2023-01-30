@@ -4,7 +4,12 @@
 }
 .game-grid-cell {
     -fx-background-color: black, white ;
-    -fx-background-insets: 0, 0 1 1 0 ;
+    -fx-background-insets: 0, 4 4 4 4 ;
+    /*-fx-background-color: white;*/
+    /*-fx-border-style: solid;*/
+    /*-fx-border-width: 1;*/
+    /*-fx-border-color: black;*/
+    /*-fx-fill: lightslategray;*/
 }
 .game-grid-cell.first-row {
     -fx-background-insets: 0, 1 1 1 0 ;
