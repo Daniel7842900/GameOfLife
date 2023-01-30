@@ -1,14 +1,19 @@
 package com.example.gol.presentation;
 
+import com.example.gol.application.RandomGenerator;
+import com.example.gol.logic.entity.Plant;
 import javafx.scene.Scene;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class World {
     private GridPane root;
+
+    private Cell[][] map;
 
     private GridPane createRoot() {
         root = new GridPane();
@@ -18,6 +23,9 @@ public class World {
 
     private void createGrid(GridPane root) {
         int rows = 5, columns = 5;
+        map = new Cell[rows][columns];
+
+        RandomGenerator.reset();
 
         for(int i = 0; i < columns; i++) {
             ColumnConstraints column = new ColumnConstraints(40);
@@ -32,7 +40,25 @@ public class World {
         for (int i = 0; i < columns; i++) {
             for (int j = 0; j < rows; j++) {
                 Cell cell = new Cell(new Cell.Coordinate(i,j));
+                int val = RandomGenerator.nextNumber(99);
+
+                // Add a cell to 2d Cell array
+                map[i][j] = cell;
+
+                // Add a cell to gridpane to display
                 root.add(cell, j, i);
+
+                if(val >= 80) {
+                    Plant plant = new Plant();
+                    map[i][j].addLife(plant);
+                    map[i][j].drawCell(plant);
+                } else if(val >= 60) {
+//                    map[i][j].drawCell(plant);
+                } else if(val >= 50) {
+
+                } else if(val >= 45) {
+
+                }
             }
         }
     }
