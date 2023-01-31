@@ -1,7 +1,6 @@
 package com.example.gol.presentation;
 
-import com.example.gol.logic.entity.LifeForm;
-import com.example.gol.logic.entity.Plant;
+import com.example.gol.logic.entity.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -12,38 +11,50 @@ public class Cell extends Pane {
     private LifeForm lifeForm;
 
     public Cell(Coordinate coordinate) {
-//        Rectangle rectangle = new Rectangle(40, 40);
+        Rectangle rectangle = new Rectangle(40, 40);
 
         // Set the position
         setTranslateY(coordinate.y);
         setTranslateX(coordinate.x);
 
         // Set background color and border
-//        rectangle.setStroke(Color.BLACK);
-//        rectangle.setFill(Color.WHITE);
+        rectangle.setStroke(Color.BLACK);
+        rectangle.setFill(Color.WHITE);
 
-        // Add rectangle node to a Pane
-//        getChildren().add(rectangle);
+        // Add rectangle node to a cell
+        getChildren().add(rectangle);
     }
 
+    /**
+     * Draw (color) a cell based on life form provided.
+     * Remove the current one and re-create a rectangle
+     *
+     * @param lifeForm
+     */
     protected void drawCell(LifeForm lifeForm) {
-        Rectangle rectangle = new Rectangle(40, 40);
+        if(lifeForm != null) {
+            // Remove the rectangle shape before we create a new one
+            this.getChildren().clear();
 
-        // Set background color and border
-        rectangle.setStroke(Color.BLACK);
-        System.out.println(lifeForm.getClass());
-        if(lifeForm.getClass().equals(Plant.class)) {
-            System.out.println("green");
-            rectangle.setFill(Color.GREEN);
-        } else {
-            rectangle.setFill(Color.WHITE);
+            // Create a new rectangle
+            Rectangle rectangle = new Rectangle(40, 40);
+
+            // Set the border of the rectangle
+            rectangle.setStroke(Color.BLACK);
+
+            if(lifeForm.getClass().equals(Herbivore.class)) {
+                rectangle.setFill(Color.YELLOW);
+            } else if(lifeForm.getClass().equals(Plant.class)) {
+                rectangle.setFill(Color.GREEN);
+            } else if(lifeForm.getClass().equals(Carnivore.class)) {
+                rectangle.setFill(Color.RED);
+            } else if(lifeForm.getClass().equals(Omnivore.class)) {
+                rectangle.setFill(Color.BLUE);
+            }
+
+            // Add rectangle node to a cell
+            getChildren().add(rectangle);
         }
-
-
-//        rectangle.setFill(Color.WHITE);
-
-        // Add rectangle node to a Pane
-        getChildren().add(rectangle);
     }
 
     protected static class Coordinate {
@@ -56,7 +67,11 @@ public class Cell extends Pane {
     }
 
     protected void addLife(LifeForm lifeForm) {
-        this.lifeForm = lifeForm;
+        // Set life form in a cell
+        setLifeForm(lifeForm);
+
+        // Draw life form in a cell
+        drawCell(lifeForm);
     }
 
     public LifeForm getLifeForm() {
