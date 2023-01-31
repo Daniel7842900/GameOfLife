@@ -5,6 +5,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+/**
+ * Presentation layer for a cell.
+ * A cell contains a life form inside
+ */
 public class Cell extends Pane {
     private int x = 0;
     private int y = 0;
