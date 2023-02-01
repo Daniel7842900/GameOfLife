@@ -5,6 +5,7 @@ import com.example.gol.presentation.World;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public abstract class LifeForm {
     private int turnToDeath = 5;
@@ -36,6 +37,18 @@ public abstract class LifeForm {
     }
 
     public abstract void performAction();
+
+    public Cell chooseCell(List<Cell> availableCells) {
+        Random rand = new Random();
+
+        // Pick random number from 0 to availableCells.size - 1
+        int randomPick = rand.nextInt(availableCells.size());
+
+        // Get the cell index at randomPick
+        Cell chosenCell = availableCells.get(randomPick);
+
+        return chosenCell;
+    }
 
     public int getTurnToDeath() {
         return this.turnToDeath;
