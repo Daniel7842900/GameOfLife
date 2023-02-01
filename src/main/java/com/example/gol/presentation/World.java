@@ -23,7 +23,7 @@ public class World {
     // 2D array to store cells for logics
     private Cell[][] map;
 
-    private int rows = 2, columns = 2;
+    private int rows = 3, columns = 3;
 
     private GridPane createRoot() {
         root = new GridPane();
@@ -31,6 +31,12 @@ public class World {
         return root;
     }
 
+    /**
+     * Create a cell and add it to 2D array and the grid
+     * Loop through the cells top -> down, left -> right
+     *
+     * @param root
+     */
     private void createGrid(GridPane root) {
         map = new Cell[rows][columns];
 
@@ -46,9 +52,6 @@ public class World {
             root.getRowConstraints().add(row);
         }
 
-        // Create a cell and add it to 2D array and the grid
-        // Note that we are filling up cells columns first, then rows
-        // (we are filling up cells into grid from top to bottom starting from column 0
         for (int i = 0; i < columns; i++) {
             for (int j = 0; j < rows; j++) {
                 // Add a cell to 2d Cell array

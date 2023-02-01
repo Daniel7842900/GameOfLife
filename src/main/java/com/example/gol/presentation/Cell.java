@@ -19,21 +19,6 @@ public class Cell extends Pane {
     private World world;
     private Cell[] neighborCells;
 
-//    public Cell(Coordinate coordinate) {
-//        Rectangle rectangle = new Rectangle(40, 40);
-//
-//        // Set the position
-//        setTranslateY(coordinate.y);
-//        setTranslateX(coordinate.x);
-//
-//        // Set background color and border
-//        rectangle.setStroke(Color.BLACK);
-//        rectangle.setFill(Color.WHITE);
-//
-//        // Add rectangle node to a cell
-//        getChildren().add(rectangle);
-//    }
-
     public Cell(World world, int row, int col) {
         Rectangle rectangle = new Rectangle(40, 40);
 
@@ -84,47 +69,41 @@ public class Cell extends Pane {
         }
     }
 
+    /**
+     * Find neighbor cells within the grid.
+     * Look for the cells that are vertical, horizontal, and diagonal.
+     * Loop through the cells top -> down, left -> right
+     *
+     * @return
+     */
     public List<Cell> getNeighborCells() {
         List<Cell> neighbors = new ArrayList<>();
-//        System.out.println("y: " + this.getY() + " x: " + this.getX());
         if(this.getLifeForm() != null) {
             Cell[][] map = world.getMap();
 
+            // Get row and col from the current cell
             int row = this.getRow();
             int col = this.getCol();
 
-            if(this.getLifeForm() != null) {
-                System.out.println(this.getLifeForm().getColor());
-            }
-
             for(int c = -1; c <= 1; c++) {
                 for(int r = -1; r <= 1; r++) {
+                    // Do not add cell itself as a neighbor
                     if(c == 0 && r == 0) continue;
 
-                    if((row == 0 && c == -1) || (row == map.length - 1 && c == 1) || (col == 0 && r == -1) || (col == map[0].length - 1 && r == 1)) break;
-                    neighbors.add(map[row+c][col+r]);
+                    // Out of bound from the leftmost and rightmost column, break
+                    if((col == 0 && c == -1) || (col == map[0].length - 1 && c == 1)) break;
+
+                    // Out of bound from the top and bottom, skip that cell
+                    if((row == 0 && r == -1) || (row == map.length - 1 && r == 1)) continue;
+
+                    // Add neighbor cell to a list
+                    neighbors.add(map[row+r][col+c]);
                 }
             }
         }
+
         return neighbors;
     }
-
-//    public static class Coordinate {
-//        private int x = 0, y = 0;
-//
-//        protected Coordinate(int y, int x) {
-//            this.y = y;
-//            this.x = x;
-//        }
-//
-//        public int getX() {
-//            return x;
-//        }
-//
-//        public int getY() {
-//            return y;
-//        }
-//    }
 
     protected void addLife(LifeForm lifeForm) {
         // Set life form in a cell
