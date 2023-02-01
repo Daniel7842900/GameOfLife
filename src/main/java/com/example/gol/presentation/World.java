@@ -2,14 +2,9 @@ package com.example.gol.presentation;
 
 import com.example.gol.application.RandomGenerator;
 import com.example.gol.logic.entity.*;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -56,19 +51,9 @@ public class World {
             for (int j = 0; j < rows; j++) {
                 // Add a cell to 2d Cell array
                 map[j][i] = new Cell(this, j, i);
-                /**
-                 * cell
-                 * cell
-                 * cell
-                 * cell
-                 *
-                 *
-                 */
 
                 // Add a cell to gridpane to display
                 root.add(map[j][i], i, j);
-                // i = 0 j = 0
-                // i = 0 j = 1
             }
         }
 
@@ -85,8 +70,6 @@ public class World {
             for (int j = 0; j < rows; j++) {
                 int val = RandomGenerator.nextNumber(99);
 
-                // i = 0 j = 0
-                // i = 0 j = 1
                 // Add a cell to 2d Cell array
                 Cell cell = map[j][i];
                 LifeForm lifeForm = null;
@@ -104,6 +87,26 @@ public class World {
                 cell.addLife(lifeForm);
                 System.out.println("j: " + j + " i: " + i);
                 System.out.println("life form in populate: " + cell.getLifeForm());
+            }
+        }
+    }
+
+    /**
+     * Update the map (grid pane) with the updated cells that contains new life form.
+     * This method is called after a mouse click.
+     *
+     */
+    public void updateMap() {
+        for (int i = 0; i < columns; i++) {
+            for (int j = 0; j < rows; j++) {
+                // Get the cell located at index j and i
+                Cell cell = map[j][i];
+
+                // Get the life form in the cell
+                LifeForm lifeForm = cell.getLifeForm();
+
+                // Draw the life form
+                cell.drawCell(lifeForm);
             }
         }
     }

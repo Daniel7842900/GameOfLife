@@ -44,6 +44,8 @@ public abstract class LifeForm {
         // Pick random number from 0 to availableCells.size - 1
         int randomPick = rand.nextInt(availableCells.size());
 
+        System.out.println(randomPick);
+
         // Get the cell index at randomPick
         Cell chosenCell = availableCells.get(randomPick);
 

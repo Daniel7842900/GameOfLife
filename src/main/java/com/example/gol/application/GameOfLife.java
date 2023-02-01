@@ -44,6 +44,7 @@ public class GameOfLife {
                         if(lifeForm != null) {
                             System.out.println("lifeForm is " + lifeForm);
                             lifeForm.performAction();
+                            world.updateMap();
                         }
                     }
                 }
