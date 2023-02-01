@@ -2,7 +2,9 @@ package com.example.gol.presentation;
 
 import com.example.gol.application.RandomGenerator;
 import com.example.gol.logic.entity.*;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -21,7 +23,7 @@ public class World {
     // 2D array to store cells for logics
     private Cell[][] map;
 
-    private int rows = 5, columns = 5;
+    private int rows = 2, columns = 2;
 
     private GridPane createRoot() {
         root = new GridPane();
@@ -45,15 +47,25 @@ public class World {
         }
 
         // Create a cell and add it to 2D array and the grid
+        // Note that we are filling up cells columns first, then rows
+        // (we are filling up cells into grid from top to bottom starting from column 0
         for (int i = 0; i < columns; i++) {
             for (int j = 0; j < rows; j++) {
-                Cell cell = new Cell(new Cell.Coordinate(i,j));
-
                 // Add a cell to 2d Cell array
-                map[i][j] = cell;
+                map[j][i] = new Cell(this, j, i);
+                /**
+                 * cell
+                 * cell
+                 * cell
+                 * cell
+                 *
+                 *
+                 */
 
                 // Add a cell to gridpane to display
-                root.add(cell, j, i);
+                root.add(map[j][i], i, j);
+                // i = 0 j = 0
+                // i = 0 j = 1
             }
         }
 
@@ -70,15 +82,16 @@ public class World {
             for (int j = 0; j < rows; j++) {
                 int val = RandomGenerator.nextNumber(99);
 
+                // i = 0 j = 0
+                // i = 0 j = 1
                 // Add a cell to 2d Cell array
-                Cell cell = map[i][j];
-
+                Cell cell = map[j][i];
                 LifeForm lifeForm = null;
 
                 if(val >= 80) {
-                    lifeForm = new Herbivore();
+                    lifeForm = new Herbivore(cell);
                 } else if(val >= 60) {
-                    lifeForm = new Plant();
+                    lifeForm = new Plant(cell);
                 } else if(val >= 50) {
                     lifeForm = new Carnivore();
                 } else if(val >= 45) {
@@ -86,6 +99,8 @@ public class World {
                 }
 
                 cell.addLife(lifeForm);
+                System.out.println("j: " + j + " i: " + i);
+                System.out.println("life form in populate: " + cell.getLifeForm());
             }
         }
     }
@@ -96,14 +111,18 @@ public class World {
      *
      * @param stage
      */
-    public void createWorld(Stage stage) {
+    public GridPane createWorld(Stage stage) {
         GridPane root = createRoot();
         createGrid(root);
 
-        Scene scene = new Scene(root);
-        stage.setTitle("Game Of Life!");
-        scene.getStylesheets().add(getClass().getResource("/com/example/gol/GameOfLifeStyle.css").toExternalForm());
-        stage.setScene(scene);
-        stage.show();
+        return root;
+    }
+
+    public Cell[][] getMap() {
+        return this.map;
+    }
+
+    public void setMap(Cell[][] map) {
+        this.map = map;
     }
 }
