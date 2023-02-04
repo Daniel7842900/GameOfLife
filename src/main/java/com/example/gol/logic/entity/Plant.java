@@ -28,11 +28,13 @@ public class Plant extends LifeForm {
                 neighbors) {
             System.out.println(" row: " + c.getRow() + "col: " + c.getCol());
             LifeForm lifeForm = c.getLifeForm();
-            if(lifeForm == null)  {
-                countEmpty++;
-                availableNeighbors.add(c);
-            } else if(lifeForm.getClass().equals(Plant.class)) {
-                countPlant++;
+            if(!lifeForm.isMoved()) {
+                if(lifeForm == null)  {
+                    countEmpty++;
+                    availableNeighbors.add(c);
+                } else if(lifeForm.getClass().equals(Plant.class)) {
+                    countPlant++;
+                }
             }
         }
 
@@ -44,6 +46,9 @@ public class Plant extends LifeForm {
             Cell chosenCell = super.chooseCell(availableNeighbors);
             System.out.println(chosenCell.getRow() + " " + chosenCell.getCol());
             chosenCell.setLifeForm(new Plant(chosenCell));
+            chosenCell.getLifeForm().setMoved(true);
+
+            // Set moved flag to false on a chosen cell.
 
         }
     }

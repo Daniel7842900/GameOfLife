@@ -7,18 +7,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Superclass for life forms
+ * LifeForm does everything it can do in one turn, then the next cell takes turn.
+ * i.e. Herbivore moves and reproduces. Then whatever cell comes next, will act accordingly.
+ */
 public abstract class LifeForm {
     private int turnToDeath = 5;
-
     protected Cell cell;
-
     private World world;
-
     private String color;
+    private boolean moved = false;
 
-    public String getColor() {
-        return color;
+    public void test() {
+        System.out.println("test");
     }
+
+
 
     public void eat() {
 
@@ -68,4 +73,15 @@ public abstract class LifeForm {
         this.cell = cell;
     }
 
+    public String getColor() {
+        return color;
+    }
+
+    public void setMoved(boolean moved) {
+        this.moved = moved;
+    }
+
+    public boolean isMoved() {
+        return moved;
+    }
 }

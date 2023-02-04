@@ -18,7 +18,7 @@ public class World {
     // 2D array to store cells for logics
     private Cell[][] map;
 
-    private int rows = 3, columns = 3;
+    private int rows = 2, columns = 2;
 
     private GridPane createRoot() {
         root = new GridPane();
@@ -33,6 +33,7 @@ public class World {
      * @param root
      */
     private void createGrid(GridPane root) {
+        System.out.println("creating grid...");
         map = new Cell[rows][columns];
 
         RandomGenerator.reset();
@@ -66,6 +67,7 @@ public class World {
      *
      */
     private void initPopulate() {
+        System.out.println("populating life forms...");
         for (int i = 0; i < columns; i++) {
             for (int j = 0; j < rows; j++) {
                 int val = RandomGenerator.nextNumber(99);
@@ -77,7 +79,7 @@ public class World {
                 if(val >= 80) {
                     lifeForm = new Herbivore(cell);
                 } else if(val >= 60) {
-                    lifeForm = new Plant(cell);
+//                    lifeForm = new Plant(cell);
                 } else if(val >= 50) {
                     lifeForm = new Carnivore();
                 } else if(val >= 45) {
@@ -97,6 +99,7 @@ public class World {
      *
      */
     public void updateMap() {
+        System.out.println("updating map in world...");
         for (int i = 0; i < columns; i++) {
             for (int j = 0; j < rows; j++) {
                 // Get the cell located at index j and i
@@ -104,6 +107,9 @@ public class World {
 
                 // Get the life form in the cell
                 LifeForm lifeForm = cell.getLifeForm();
+
+                System.out.println("lifeform at row: " + j + " col: " + i);
+                System.out.println(lifeForm);
 
                 // Draw the life form
                 cell.drawCell(lifeForm);

@@ -44,16 +44,16 @@ public class Cell extends Pane {
      * @param lifeForm
      */
     protected void drawCell(LifeForm lifeForm) {
+        // Remove the rectangle shape before we create a new one
+        this.getChildren().clear();
+
+        // Create a new rectangle
+        Rectangle rectangle = new Rectangle(40, 40);
+
+        // Set the border of the rectangle
+        rectangle.setStroke(Color.BLACK);
+
         if(lifeForm != null) {
-            // Remove the rectangle shape before we create a new one
-            this.getChildren().clear();
-
-            // Create a new rectangle
-            Rectangle rectangle = new Rectangle(40, 40);
-
-            // Set the border of the rectangle
-            rectangle.setStroke(Color.BLACK);
-
             if(lifeForm.getClass().equals(Herbivore.class)) {
                 rectangle.setFill(Color.YELLOW);
             } else if(lifeForm.getClass().equals(Plant.class)) {
@@ -63,10 +63,12 @@ public class Cell extends Pane {
             } else if(lifeForm.getClass().equals(Omnivore.class)) {
                 rectangle.setFill(Color.BLUE);
             }
-
-            // Add rectangle node to a cell
-            getChildren().add(rectangle);
+        } else {
+            rectangle.setFill(Color.WHITE);
         }
+
+        // Add rectangle node to a cell
+        getChildren().add(rectangle);
     }
 
     /**

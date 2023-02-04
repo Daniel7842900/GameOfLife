@@ -41,7 +41,7 @@ public class GameOfLife {
                         LifeForm lifeForm = map[i][j].getLifeForm();
 
                         System.out.println("i: " + i + " j: " + j);
-                        if(lifeForm != null) {
+                        if(lifeForm != null && !lifeForm.isMoved()) {
                             System.out.println("lifeForm is " + lifeForm);
                             lifeForm.performAction();
                             world.updateMap();
