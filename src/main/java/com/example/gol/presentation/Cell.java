@@ -107,6 +107,39 @@ public class Cell extends Pane {
         return neighbors;
     }
 
+    /**
+     * Get a list of neighbor cells with a higher precedence.
+     * If there are cells that a life form can eat, then it chooses over that list
+     * over a list of empty cells.
+     *
+     * @param allNeighbors
+     * @return List<Cell>
+     */
+    public List<Cell> getEligibleNeighbors(List<Cell> allNeighbors) {
+        List<Cell> eligibleNeighbors;
+        List<Cell> edibleNeighbors = new ArrayList<>();
+        List<Cell> emptyNeighbors = new ArrayList<>();
+
+        // Distribute edible neighbors and empty neighbors
+        for (Cell c:
+                allNeighbors) {
+            LifeForm lifeForm = c.getLifeForm();
+            if(lifeForm == null) {
+                emptyNeighbors.add(c);
+            } else if(lifeForm.getClass().equals(Plant.class)){
+                edibleNeighbors.add(c);
+            }
+        }
+
+        if(edibleNeighbors.size() >= emptyNeighbors.size()) {
+            eligibleNeighbors = edibleNeighbors;
+        } else {
+            eligibleNeighbors = emptyNeighbors;
+        }
+
+        return eligibleNeighbors;
+    }
+
     protected void addLife(LifeForm lifeForm) {
         // Set life form in a cell
         setLifeForm(lifeForm);

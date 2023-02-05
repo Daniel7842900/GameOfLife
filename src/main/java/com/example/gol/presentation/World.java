@@ -18,7 +18,7 @@ public class World {
     // 2D array to store cells for logics
     private Cell[][] map;
 
-    private int rows = 2, columns = 2;
+    private int rows = 6, columns = 6;
 
     private GridPane createRoot() {
         root = new GridPane();
@@ -87,8 +87,8 @@ public class World {
                 }
 
                 cell.addLife(lifeForm);
-                System.out.println("j: " + j + " i: " + i);
-                System.out.println("life form in populate: " + cell.getLifeForm());
+//                System.out.println("j: " + j + " i: " + i);
+//                System.out.println("life form in populate: " + cell.getLifeForm());
             }
         }
     }
@@ -108,11 +108,34 @@ public class World {
                 // Get the life form in the cell
                 LifeForm lifeForm = cell.getLifeForm();
 
-                System.out.println("lifeform at row: " + j + " col: " + i);
-                System.out.println(lifeForm);
+//                System.out.println("lifeform at row: " + j + " col: " + i);
+//                System.out.println(lifeForm);
 
                 // Draw the life form
                 cell.drawCell(lifeForm);
+            }
+        }
+
+        resetMoveStatus();
+    }
+
+    private void resetMoveStatus() {
+        System.out.println("Resetting moved status for life forms...");
+        for (int i = 0; i < columns; i++) {
+            for (int j = 0; j < rows; j++) {
+                // Get the cell located at index j and i
+                Cell cell = map[j][i];
+
+                // Get the life form in the cell
+                LifeForm lifeForm = cell.getLifeForm();
+
+//                System.out.println("lifeform at row: " + j + " col: " + i);
+//                System.out.println(lifeForm);
+
+                // Draw the life form
+                if(lifeForm != null) {
+                    lifeForm.setMoved(false);
+                }
             }
         }
     }

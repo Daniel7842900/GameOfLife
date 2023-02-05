@@ -14,79 +14,79 @@ public class Herbivore extends LifeForm {
         super.cell = cell;
     }
 
+    /**
+     * Life forms move first and then give birth after.
+     */
     @Override
     public void performAction() {
         System.out.println("performing performAction in Herbivore...");
-        // move first and then give birth
         move();
-//        giveBirth();
+        giveBirth();
     }
 
-    @Override
-    public void move() {
-        System.out.println("Herbivore moving...");
-        List<Cell> allNeighbors = this.getCell().getNeighborCells();
+//    @Override
+//    public void move() {
+//        System.out.println("Herbivore moving...");
+//        List<Cell> allNeighbors = this.getCell().getNeighborCells();
+//
+//        // If there is no neighbor cells, don't move
+//        if(allNeighbors.size() == 0) return;
+//
+//        // Get eligible neighbors among available cells
+//        List<Cell> eligibleNeighbors = this.getEligibleNeighbors(allNeighbors);
+//        System.out.println(eligibleNeighbors);
+//
+//        // If there is no eligible cells, don't move
+//        if(eligibleNeighbors.size() == 0) return;
+//
+//        // Get current Cell
+//        Cell curCell = this.getCell();
+//
+//        // Choose a cell among eligible neighbor cells
+//        Cell chosenCell = super.chooseCell(eligibleNeighbors);
+//
+//        // Set a chosen cell (new cell) in this life form
+//        this.setCell(chosenCell);
+//        // Set a life form in the chosen cell (new cell)
+//        chosenCell.setLifeForm(this);
+//
+//        // Make current cell as empty since life form moved
+//        curCell.setLifeForm(null);
+//
+//        // Set this life form's moved status as true
+//        this.setMoved(true);
+//    }
 
-        if(allNeighbors == null) return;
-
-        // Get eligible neighbors among available cells
-        List<Cell> eligibleNeighbors = this.getEligibleNeighbors(allNeighbors);
-        System.out.println(eligibleNeighbors);
-
-        // Get current Cell
-        Cell curCell = this.getCell();
-
-        // Choose a cell among eligible neighbor cells
-        Cell chosenCell = super.chooseCell(eligibleNeighbors);
-
-        // Set a chosen cell (new cell) in this life form
-        this.setCell(chosenCell);
-        // Set a life form in the chosen cell (new cell)
-        chosenCell.setLifeForm(this);
-
-        // Make current cell as empty since life form moved
-        curCell.setLifeForm(null);
-
-        // Set this life form's moved status as true
-        this.setMoved(true);
-    }
-
-    /**
-     * Get a list of neighbor cells with a higher precedence.
-     * If there are cells that a life form can eat, then it chooses over that list
-     * over a list of empty cells.
-     *
-     * @param allNeighbors
-     * @return List<Cell>
-     */
-    private List<Cell> getEligibleNeighbors(List<Cell> allNeighbors) {
-        List<Cell> eligibleNeighbors = new ArrayList<>();
-        List<Cell> edibleNeighbors = new ArrayList<>();
-        List<Cell> emptyNeighbors = new ArrayList<>();
-
-        // Distribute edible neighbors and empty neighbors
-        for (Cell c:
-                allNeighbors) {
-            LifeForm lifeForm = c.getLifeForm();
-            if(lifeForm == null) {
-                emptyNeighbors.add(c);
-            } else {
-                if(lifeForm == null || lifeForm.getClass().equals(Plant.class))  {
-                    edibleNeighbors.add(c);
-                }
-            }
-        }
-
-        if(edibleNeighbors.size() >= emptyNeighbors.size()) {
-            eligibleNeighbors = edibleNeighbors;
-        } else {
-            eligibleNeighbors = emptyNeighbors;
-        }
-
-        return eligibleNeighbors;
-    }
-
-
+//    @Override
+//    public void giveBirth() {
+//        System.out.println("Entering Herbivore giveBirth...");
+//        List<Cell> allNeighbors = this.getCell().getNeighborCells();
+//        List<Cell> availableNeighbors = new ArrayList<>();
+//
+//        int herbCount = 0;
+//        int emptyCellCount = 0;
+//        int plantCount = 0;
+//
+//        for (Cell c:
+//             allNeighbors) {
+//            LifeForm lifeForm = c.getLifeForm();
+//            if(lifeForm == null) {
+//                emptyCellCount++;
+//                availableNeighbors.add(c);
+//            } else if(lifeForm.getClass().equals(Herbivore.class)) {
+//                herbCount++;
+//            } else if(lifeForm.getClass().equals(Plant.class)) {
+//                plantCount++;
+//            }
+//        }
+//
+//        if(herbCount >= 1 && emptyCellCount >= 2 && plantCount >= 2) {
+//            System.out.println("Herbivore giving birth...");
+//            Cell chosenCell = super.chooseCell(availableNeighbors);
+//            chosenCell.setLifeForm(new Herbivore(chosenCell));
+//            chosenCell.getLifeForm().setMoved(true);
+//        }
+//    }
 
     public String getColor() {
         return color;

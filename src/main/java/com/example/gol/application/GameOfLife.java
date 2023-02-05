@@ -44,10 +44,11 @@ public class GameOfLife {
                         if(lifeForm != null && !lifeForm.isMoved()) {
                             System.out.println("lifeForm is " + lifeForm);
                             lifeForm.performAction();
-                            world.updateMap();
+
                         }
                     }
                 }
+                world.updateMap();
             }
         });
     }

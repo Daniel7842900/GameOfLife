@@ -42,7 +42,7 @@ public class Plant extends LifeForm {
         System.out.println("countEmpty: " + countEmpty);
 
         if(countPlant >= 2 && countEmpty >= 3) {
-            System.out.println("seed!!!!");
+            System.out.println("Plant seeding...");
             Cell chosenCell = super.chooseCell(availableNeighbors);
             System.out.println(chosenCell.getRow() + " " + chosenCell.getCol());
             chosenCell.setLifeForm(new Plant(chosenCell));
