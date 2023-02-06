@@ -73,9 +73,13 @@ public abstract class LifeForm {
             chosenCell.getLifeForm().setMoved(true);
         }
     }
+
+    /**
+     * Kill a life form if it couldn't eat food within turns.
+     */
     public void die() {
-
-
+        // Make current cell as empty since life form moved
+        this.getCell().setLifeForm(null);
     }
 
     /**
@@ -88,6 +92,13 @@ public abstract class LifeForm {
      */
     public void move() {
         System.out.println("Life form moving...");
+        System.out.println("turn to death left: " + this.getTurnToDeath());
+
+        if(this.getTurnToDeath() == 0) {
+            die();
+            return;
+        }
+
         List<Cell> allNeighbors = this.getCell().getNeighborCells();
 
         // If there is no neighbor cells, don't move
@@ -104,6 +115,11 @@ public abstract class LifeForm {
 
         // Choose a cell among eligible neighbor cells
         Cell chosenCell = chooseCell(eligibleNeighbors);
+
+        if(chosenCell.getLifeForm() == null) {
+            // Decrement the number of turn to death
+            this.setTurnToDeath(this.getTurnToDeath() - 1);
+        }
 
         // Set a chosen cell (new cell) in this life form
         this.setCell(chosenCell);
