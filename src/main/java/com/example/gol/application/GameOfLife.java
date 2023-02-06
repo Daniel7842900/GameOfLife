@@ -40,9 +40,9 @@ public class GameOfLife {
                         // invoke life form to check neighbor and take action (move)
                         LifeForm lifeForm = map[i][j].getLifeForm();
 
-                        System.out.println("i: " + i + " j: " + j);
+//                        System.out.println("i: " + i + " j: " + j);
                         if(lifeForm != null && !lifeForm.isMoved()) {
-                            System.out.println("lifeForm is " + lifeForm);
+//                            System.out.println("lifeForm is " + lifeForm);
                             lifeForm.performAction();
 
                         }

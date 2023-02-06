@@ -11,59 +11,81 @@ import java.util.Random;
  * Superclass for life forms
  * LifeForm does everything it can do in one turn, then the next cell takes turn.
  * i.e. Herbivore moves and reproduces. Then whatever cell comes next, will act accordingly.
+ *
+ * @Author Daniel Lim
  */
 public abstract class LifeForm {
     private int turnToDeath = 5;
     protected Cell cell;
-    private World world;
-    private String color;
     private boolean moved = false;
-
-    public void test() {
-        System.out.println("test");
-    }
-
-
 
     public void eat() {
 
     }
 
-    public void giveBirth() {
+    public abstract void performAction();
+
+    protected abstract int countEdible(List<Cell> neighbors);
+
+    protected abstract LifeForm createLife(Cell cell);
+
+    /**
+     * Method to give a birth.
+     * Count the numbers of mate, empty, and food in neighbor cells.
+     * If the condition is met, give a birth to a life form.
+     *
+     * @param numMates
+     * @param numEmpty
+     * @param numFood
+     */
+    public void giveBirth(int numMates, int numEmpty, int numFood) {
         System.out.println("Entering Life Form giveBirth...");
         List<Cell> allNeighbors = this.getCell().getNeighborCells();
         List<Cell> availableNeighbors = new ArrayList<>();
 
-        int herbCount = 0;
-        int emptyCellCount = 0;
-        int plantCount = 0;
-
+        // Count number of mates and number of empty cells
         for (Cell c:
                 allNeighbors) {
             LifeForm lifeForm = c.getLifeForm();
             if(lifeForm == null) {
-                emptyCellCount++;
+                numEmpty--;
                 availableNeighbors.add(c);
-            } else if(lifeForm.getClass().equals(Herbivore.class)) {
-                herbCount++;
-            } else if(lifeForm.getClass().equals(Plant.class)) {
-                plantCount++;
+            } else if(lifeForm.getClass().equals(this.getClass())) {
+                numMates--;
             }
         }
 
-        if(herbCount >= 1 && emptyCellCount >= 2 && plantCount >= 2) {
-            System.out.println("Herbivore giving birth...");
+        // Get the number of food cells
+        int edibleFood = this.countEdible(allNeighbors);
+
+        // Condition to give a birth
+        if(numEmpty <= 0 && numMates <= 0 && (numFood - edibleFood) <= 0) {
+            System.out.println("Life form giving birth...");
+            System.out.println("original life form is at: " + this.getCell().getRow() + " and " + this.getCell().getCol());
             Cell chosenCell = chooseCell(availableNeighbors);
-            chosenCell.setLifeForm(new Herbivore(chosenCell));
+            System.out.println("chosen life form is at: " + chosenCell.getRow() + " and " + chosenCell.getCol());
+
+            // Create a new life form accordingly
+            LifeForm newLifeForm = createLife(chosenCell);
+
+            // Set the new life form in the chosen cell and mark as moved
+            chosenCell.setLifeForm(newLifeForm);
             chosenCell.getLifeForm().setMoved(true);
         }
     }
-
     public void die() {
 
 
     }
 
+    /**
+     * Method to move a life form.
+     * Finds available neighbor cells depending on the current cell's life form.
+     * Randomly choose a cell among available neighbor cells and set the life form
+     * in that cell. Also, set cell info in the life form as well.
+     * The current cell will be empty after the life form moves.
+     *
+     */
     public void move() {
         System.out.println("Life form moving...");
         List<Cell> allNeighbors = this.getCell().getNeighborCells();
@@ -95,15 +117,18 @@ public abstract class LifeForm {
         this.setMoved(true);
     }
 
-    public abstract void performAction();
-
+    /**
+     * Randomly choose a cell among provided available cells.
+     * Use RandomGenerator to generate a random number.
+     *
+     * @param availableCells
+     * @return
+     */
     public Cell chooseCell(List<Cell> availableCells) {
         Random rand = new Random();
-//        System.out.println("neighbor size: " + availableCells.size());
+
         // Pick random number from 0 to availableCells.size - 1
         int randomPick = rand.nextInt(availableCells.size());
-
-//        System.out.println(randomPick);
 
         // Get the cell index at randomPick
         Cell chosenCell = availableCells.get(randomPick);
@@ -125,10 +150,6 @@ public abstract class LifeForm {
 
     public void setCell(Cell cell) {
         this.cell = cell;
-    }
-
-    public String getColor() {
-        return color;
     }
 
     public void setMoved(boolean moved) {

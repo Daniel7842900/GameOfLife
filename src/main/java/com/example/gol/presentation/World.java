@@ -81,9 +81,9 @@ public class World {
                 } else if(val >= 60) {
 //                    lifeForm = new Plant(cell);
                 } else if(val >= 50) {
-                    lifeForm = new Carnivore();
+                    lifeForm = new Carnivore(cell);
                 } else if(val >= 45) {
-                    lifeForm = new Omnivore();
+                    lifeForm = new Omnivore(cell);
                 }
 
                 cell.addLife(lifeForm);

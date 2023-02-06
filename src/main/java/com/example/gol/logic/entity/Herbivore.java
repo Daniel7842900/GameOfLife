@@ -1,13 +1,25 @@
 package com.example.gol.logic.entity;
 
-import com.example.gol.application.RandomGenerator;
+import com.example.gol.logic.relationship.CarnEdible;
+import com.example.gol.logic.relationship.HerbEdible;
 import com.example.gol.presentation.Cell;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class Herbivore extends LifeForm {
+/**
+ * Herbivore class.
+ * Herbivore eats Plants.
+ * Herbivore gives birth when there are at least 1 other Herbivore,
+ * at least 2 other empty cells, and 2 other Plants.
+ * Herbivore dies 5 turns if it doesn't eat.
+ *
+ * @Author Daniel Lim
+ */
+public class Herbivore extends LifeForm implements CarnEdible {
     private String color = "YELLOW";
+    private int numMates = 1;
+    private int numEmpty = 2;
+    private int numFood = 2;
 
     public Herbivore(Cell cell) {
 //        super();
@@ -21,72 +33,40 @@ public class Herbivore extends LifeForm {
     public void performAction() {
         System.out.println("performing performAction in Herbivore...");
         move();
-        giveBirth();
+        giveBirth(numMates, numEmpty, numFood);
     }
 
-//    @Override
-//    public void move() {
-//        System.out.println("Herbivore moving...");
-//        List<Cell> allNeighbors = this.getCell().getNeighborCells();
-//
-//        // If there is no neighbor cells, don't move
-//        if(allNeighbors.size() == 0) return;
-//
-//        // Get eligible neighbors among available cells
-//        List<Cell> eligibleNeighbors = this.getEligibleNeighbors(allNeighbors);
-//        System.out.println(eligibleNeighbors);
-//
-//        // If there is no eligible cells, don't move
-//        if(eligibleNeighbors.size() == 0) return;
-//
-//        // Get current Cell
-//        Cell curCell = this.getCell();
-//
-//        // Choose a cell among eligible neighbor cells
-//        Cell chosenCell = super.chooseCell(eligibleNeighbors);
-//
-//        // Set a chosen cell (new cell) in this life form
-//        this.setCell(chosenCell);
-//        // Set a life form in the chosen cell (new cell)
-//        chosenCell.setLifeForm(this);
-//
-//        // Make current cell as empty since life form moved
-//        curCell.setLifeForm(null);
-//
-//        // Set this life form's moved status as true
-//        this.setMoved(true);
-//    }
+    /**
+     * Count the edible cells among neighbor cells.
+     *
+     * @param neighbors
+     * @return
+     */
+    @Override
+    protected int countEdible(List<Cell> neighbors) {
+        int result = 0;
 
-//    @Override
-//    public void giveBirth() {
-//        System.out.println("Entering Herbivore giveBirth...");
-//        List<Cell> allNeighbors = this.getCell().getNeighborCells();
-//        List<Cell> availableNeighbors = new ArrayList<>();
-//
-//        int herbCount = 0;
-//        int emptyCellCount = 0;
-//        int plantCount = 0;
-//
-//        for (Cell c:
-//             allNeighbors) {
-//            LifeForm lifeForm = c.getLifeForm();
-//            if(lifeForm == null) {
-//                emptyCellCount++;
-//                availableNeighbors.add(c);
-//            } else if(lifeForm.getClass().equals(Herbivore.class)) {
-//                herbCount++;
-//            } else if(lifeForm.getClass().equals(Plant.class)) {
-//                plantCount++;
-//            }
-//        }
-//
-//        if(herbCount >= 1 && emptyCellCount >= 2 && plantCount >= 2) {
-//            System.out.println("Herbivore giving birth...");
-//            Cell chosenCell = super.chooseCell(availableNeighbors);
-//            chosenCell.setLifeForm(new Herbivore(chosenCell));
-//            chosenCell.getLifeForm().setMoved(true);
-//        }
-//    }
+        for (Cell c:
+             neighbors) {
+            LifeForm lifeForm = c.getLifeForm();
+            if(lifeForm instanceof HerbEdible) {
+                result++;
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * Create a new life form.
+     *
+     * @param cell
+     * @return
+     */
+    @Override
+    protected Herbivore createLife(Cell cell) {
+        return new Herbivore(cell);
+    }
 
     public String getColor() {
         return color;
