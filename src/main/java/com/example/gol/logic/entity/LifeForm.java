@@ -16,6 +16,8 @@ import java.util.Random;
  */
 public abstract class LifeForm {
     private int turnToDeath = 5;
+    private int hungryLevel = 0;
+    private boolean isAlive = true;
     protected Cell cell;
     private boolean moved = false;
 
@@ -94,7 +96,8 @@ public abstract class LifeForm {
         System.out.println("Life form moving...");
         System.out.println("turn to death left: " + this.getTurnToDeath());
 
-        if(this.getTurnToDeath() == 0) {
+        if(!this.isAlive()) {
+            // Kill the life form if it didn't eat within turns
             die();
             return;
         }
@@ -117,8 +120,11 @@ public abstract class LifeForm {
         Cell chosenCell = chooseCell(eligibleNeighbors);
 
         if(chosenCell.getLifeForm() == null) {
-            // Decrement the number of turn to death
-            this.setTurnToDeath(this.getTurnToDeath() - 1);
+            // Increment the hungry level
+            this.setHungryLevel(this.getHungryLevel() + 1);
+        } else {
+            // Reset the hungry level
+            this.setHungryLevel(0);
         }
 
         // Set a chosen cell (new cell) in this life form
@@ -158,6 +164,33 @@ public abstract class LifeForm {
 
     public void setTurnToDeath(int turn) {
         this.turnToDeath = turn;
+    }
+
+    public int getHungryLevel() {
+        return hungryLevel;
+    }
+
+    public void setHungryLevel(int hungryLevel) {
+        this.hungryLevel = hungryLevel;
+    }
+
+    /**
+     * Check hungry level each turn.
+     * If it didn't eat within turns, set the isAlive flag to false.
+     *
+     * @return boolean
+     */
+    public boolean isAlive() {
+        if(this.getHungryLevel() < this.getTurnToDeath()) {
+            this.setAlive(true);
+        } else {
+            this.setAlive(false);
+        }
+        return this.isAlive;
+    }
+
+    public void setAlive(boolean alive) {
+        isAlive = alive;
     }
 
     public Cell getCell() {
