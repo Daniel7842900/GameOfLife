@@ -44,16 +44,16 @@ public class Cell extends Pane {
      * @param lifeForm
      */
     protected void drawCell(LifeForm lifeForm) {
+        // Remove the rectangle shape before we create a new one
+        this.getChildren().clear();
+
+        // Create a new rectangle
+        Rectangle rectangle = new Rectangle(40, 40);
+
+        // Set the border of the rectangle
+        rectangle.setStroke(Color.BLACK);
+
         if(lifeForm != null) {
-            // Remove the rectangle shape before we create a new one
-            this.getChildren().clear();
-
-            // Create a new rectangle
-            Rectangle rectangle = new Rectangle(40, 40);
-
-            // Set the border of the rectangle
-            rectangle.setStroke(Color.BLACK);
-
             if(lifeForm.getClass().equals(Herbivore.class)) {
                 rectangle.setFill(Color.YELLOW);
             } else if(lifeForm.getClass().equals(Plant.class)) {
@@ -63,10 +63,12 @@ public class Cell extends Pane {
             } else if(lifeForm.getClass().equals(Omnivore.class)) {
                 rectangle.setFill(Color.BLUE);
             }
-
-            // Add rectangle node to a cell
-            getChildren().add(rectangle);
+        } else {
+            rectangle.setFill(Color.WHITE);
         }
+
+        // Add rectangle node to a cell
+        getChildren().add(rectangle);
     }
 
     /**
@@ -103,6 +105,39 @@ public class Cell extends Pane {
         }
 
         return neighbors;
+    }
+
+    /**
+     * Get a list of neighbor cells with a higher precedence.
+     * If there are cells that a life form can eat, then it chooses over that list
+     * over a list of empty cells.
+     *
+     * @param allNeighbors
+     * @return List<Cell>
+     */
+    public List<Cell> getEligibleNeighbors(List<Cell> allNeighbors) {
+        List<Cell> eligibleNeighbors;
+        List<Cell> edibleNeighbors = new ArrayList<>();
+        List<Cell> emptyNeighbors = new ArrayList<>();
+
+        // Distribute edible neighbors and empty neighbors
+        for (Cell c:
+                allNeighbors) {
+            LifeForm lifeForm = c.getLifeForm();
+            if(lifeForm == null) {
+                emptyNeighbors.add(c);
+            } else if(lifeForm.getClass().equals(Plant.class)){
+                edibleNeighbors.add(c);
+            }
+        }
+
+        if(edibleNeighbors.size() > 0) {
+            eligibleNeighbors = edibleNeighbors;
+        } else {
+            eligibleNeighbors = emptyNeighbors;
+        }
+
+        return eligibleNeighbors;
     }
 
     protected void addLife(LifeForm lifeForm) {
