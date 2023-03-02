@@ -18,7 +18,7 @@ public class World {
     // 2D array to store cells for logics
     private Cell[][] map;
 
-    private int rows = 8, columns = 8;
+    private int rows = 16, columns = 16;
 
     private GridPane createRoot() {
         root = new GridPane();
@@ -79,7 +79,7 @@ public class World {
                 if(val >= 80) {
                     lifeForm = new Herbivore(cell);
                 } else if(val >= 60) {
-//                    lifeForm = new Plant(cell);
+                    lifeForm = new Plant(cell);
                 } else if(val >= 50) {
                     lifeForm = new Carnivore(cell);
                 } else if(val >= 45) {
