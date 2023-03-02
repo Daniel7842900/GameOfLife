@@ -114,9 +114,11 @@ public abstract class LifeForm {
 
         // Get current Cell
         Cell curCell = this.getCell();
+        System.out.println("curCell life form is at: " + curCell.getRow() + " and " + curCell.getCol());
 
         // Choose a cell among eligible neighbor cells
         Cell chosenCell = chooseCell(eligibleNeighbors);
+        System.out.println("chosenCell life form is at: " + chosenCell.getRow() + " and " + chosenCell.getCol());
 
         if(chosenCell.getLifeForm() == null) {
             // Increment the hungry level
