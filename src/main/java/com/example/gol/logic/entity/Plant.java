@@ -1,6 +1,7 @@
 package com.example.gol.logic.entity;
 
 import com.example.gol.logic.relationship.HerbEdible;
+import com.example.gol.logic.relationship.OmniEdible;
 import com.example.gol.presentation.Cell;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
  *
  * @Author Daniel Lim
  */
-public class Plant extends LifeForm implements HerbEdible {
+public class Plant extends LifeForm implements HerbEdible, OmniEdible {
     String color = "GREEN";
     private int numMates = 2;
     private int numEmpty = 3;

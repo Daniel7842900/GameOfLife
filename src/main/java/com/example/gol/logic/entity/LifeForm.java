@@ -94,7 +94,6 @@ public abstract class LifeForm {
      */
     public void move() {
         System.out.println("Life form moving...");
-        System.out.println("turn to death left: " + this.getTurnToDeath());
 
         if(!this.isAlive()) {
             // Kill the life form if it didn't eat within turns

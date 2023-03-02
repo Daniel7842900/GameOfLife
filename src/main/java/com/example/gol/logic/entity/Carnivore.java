@@ -1,10 +1,11 @@
 package com.example.gol.logic.entity;
 
+import com.example.gol.logic.relationship.OmniEdible;
 import com.example.gol.presentation.Cell;
 
 import java.util.List;
 
-public class Carnivore extends LifeForm {
+public class Carnivore extends LifeForm implements OmniEdible {
 
     public Carnivore(Cell cell) {
 //        super();

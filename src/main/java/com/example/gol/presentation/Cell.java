@@ -131,7 +131,7 @@ public class Cell extends Pane {
             }
         }
 
-        if(edibleNeighbors.size() >= emptyNeighbors.size()) {
+        if(edibleNeighbors.size() > 0) {
             eligibleNeighbors = edibleNeighbors;
         } else {
             eligibleNeighbors = emptyNeighbors;
