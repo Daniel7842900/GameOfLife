@@ -33,7 +33,7 @@ public class Carnivore extends LifeForm implements OmniEdible {
     public void performAction() {
         System.out.println("performing performAction in Carnivore...");
         move();
-//        giveBirth(numMates, numEmpty, numFood);
+        giveBirth(numMates, numEmpty, numFood);
     }
 
     /**
