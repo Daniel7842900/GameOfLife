@@ -1,6 +1,9 @@
 package com.example.gol.presentation;
 
 import com.example.gol.logic.entity.*;
+import com.example.gol.logic.relationship.CarnEdible;
+import com.example.gol.logic.relationship.HerbEdible;
+import com.example.gol.logic.relationship.OmniEdible;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -120,14 +123,28 @@ public class Cell extends Pane {
         List<Cell> edibleNeighbors = new ArrayList<>();
         List<Cell> emptyNeighbors = new ArrayList<>();
 
+        LifeForm curLife = this.getLifeForm();
+
         // Distribute edible neighbors and empty neighbors
         for (Cell c:
                 allNeighbors) {
             LifeForm lifeForm = c.getLifeForm();
             if(lifeForm == null) {
                 emptyNeighbors.add(c);
-            } else if(lifeForm.getClass().equals(Plant.class)){
-                edibleNeighbors.add(c);
+            } else {
+                if(curLife.getClass().equals(Herbivore.class)) {
+                    if(lifeForm instanceof HerbEdible) {
+                        edibleNeighbors.add(c);
+                    }
+                } else if(curLife.getClass().equals(Carnivore.class)) {
+                    if(lifeForm instanceof CarnEdible) {
+                        edibleNeighbors.add(c);
+                    }
+                } else if(curLife.getClass().equals(Omnivore.class)) {
+                    if(lifeForm instanceof OmniEdible) {
+                        edibleNeighbors.add(c);
+                    }
+                }
             }
         }
 

@@ -33,7 +33,7 @@ public class Herbivore extends LifeForm implements CarnEdible, OmniEdible {
     @Override
     public void performAction() {
         System.out.println("performing performAction in Herbivore...");
-        move();
+//        move();
 //        giveBirth(numMates, numEmpty, numFood);
     }
 

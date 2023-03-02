@@ -79,7 +79,7 @@ public class Plant extends LifeForm implements HerbEdible, OmniEdible {
     @Override
     public void performAction() {
         System.out.println("performing performAction in Plant...");
-        giveBirth(numMates, numEmpty, numFood);
+//        giveBirth(numMates, numEmpty, numFood);
     }
 
     public String getColor() {
