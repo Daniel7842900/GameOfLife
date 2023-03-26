@@ -4,7 +4,7 @@ This project is a modified version of Conway's Game-Of-Life game written in Java
 The purpose of this project is to practice implementing the four Object-Oriented Programming principles into the code.
 The four OOP principles - Abstraction, Polymorphism, Inheritance, and Encapsulation - have been implemented within the code.
 ## Game Setup and Rules
-Since the project is not a class Game-Of-Life game, there are some modifications in the game.
+Since the project is not a classic Game-Of-Life game, there are some modifications in the game.
 ### Game Setup
 We are going to have 4 different entities:
 1. Plant
