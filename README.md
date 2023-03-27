@@ -18,23 +18,23 @@ Plant:
 - It reproduces when there are at least 2 adjacent plants and at least 3 empty cells.
 
 Herbivore:
-– It eats only Plants.
-– It reproduces when there is at least 1 adjacent Herbivore, at least 2 empty cells, and at least 2 adjacent Plants.
-– It must eat within 5 turns. Otherwise, it dies.
+- It eats only Plants.
+- It reproduces when there is at least 1 adjacent Herbivore, at least 2 empty cells, and at least 2 adjacent Plants.
+- It must eat within 5 turns. Otherwise, it dies.
 
 Carnivore:
-– It eats Herbivore and Omnivore.
-– It reproduces when there is at least 1 adjacent Carnivore, at least 3 empty cells, and at least 2 adjacent Herbivores or Omnivores.
-– It must eat within 5 turns. Otherwise, it dies.
+- It eats Herbivore and Omnivore.
+- It reproduces when there is at least 1 adjacent Carnivore, at least 3 empty cells, and at least 2 adjacent Herbivores or Omnivores.
+- It must eat within 5 turns. Otherwise, it dies.
 
 Omnivore:
-– It eats Herbivore, Carnivore, and Plant.
-– It reproduces when there is at least 1 adjacent Omnivore, at least 3 empty cells, and at least 1 adjacent Herbivore or Carnivore, or Plant.
-– It must eat within 5 turns. Otherwise, it dies.
+- It eats Herbivore, Carnivore, and Plant.
+- It reproduces when there is at least 1 adjacent Omnivore, at least 3 empty cells, and at least 1 adjacent Herbivore or Carnivore, or Plant.
+- It must eat within 5 turns. Otherwise, it dies.
 #### General Rules
-– Entity waits until the previous entity finishes their actions (move, die, or give birth).
-– Entity moves first and gives birth.
-– Entity dies when it gets eaten.
+- Entity waits until the previous entity finishes their actions (move, die, or give birth).
+- Entity moves first and gives birth.
+- Entity dies when it gets eaten.
 
 ## How To Tnstall And Run The Project
 Prerequisites: Java 19
