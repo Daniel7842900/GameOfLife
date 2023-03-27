@@ -14,8 +14,8 @@ We are going to have 4 different entities:
 ### Game Rules
 #### Entity-specific Rules
 Plant:
-– It doesn’t eat anything.
-– It reproduces when there are at least 2 adjacent plants and at least 3 empty cells.
+- It doesn’t eat anything.
+- It reproduces when there are at least 2 adjacent plants and at least 3 empty cells.
 
 Herbivore:
 – It eats only Plants.
